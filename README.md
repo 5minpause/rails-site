@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is developed with Rails 7.
 
-Things you may want to cover:
+The goal of this app is to replace my Gatsby.js website at holgerfrohloff.de
+I want to be able to tinker more with my site and for that I'd like to use a Rails app because this is what I know best and what's most fun to me.
 
-* Ruby version
+Eventually I'd like to support the Micropub format/api and be able to post microblogs to my site. For now, the first step is to be able to migrate my existing posts and articles to the new site and display them under the existing URLs.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Everything I do is supposed to be minimal in effort and have maximum impact. Nothing fancy should happen here.
