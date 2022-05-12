@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   def index
     renderer = ::IntroRenderer.new(prettify: true, hard_wrap: true)
     @markdown = markdown(renderer)
-    @articles = Article.all
+    @articles = Article.all.order(published_at: :desc)
   end
 
   # GET /articles/1 or /articles/1.json

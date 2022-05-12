@@ -9,6 +9,8 @@ class ArticleParser
 
   def markdown_doc
     File.read([path, filename].join("/"))
+  rescue Errno::ENOENT
+    File.read([path, "index.mdx"].join("/"))
   end
 
   def title
@@ -36,7 +38,7 @@ class ArticleParser
   attr_reader :path, :filename
 
   def title_regex
-    /(title: ")([\w\s\d'-,\.]*)\"/
+    /(title:)(\s)*(")([\w\s\d'\-,\.&’:()?!]*)\"/
   end
 
   def date_regex
