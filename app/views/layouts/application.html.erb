@@ -12,7 +12,20 @@
   </head>
 
   <body>
+    <% if @display_sessions_links %>
+      <% if signed_in? %>
+        Signed in as: <%= current_user.email %>
+        <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign in', sign_in_path %>
+      <% end %>
+    <% end %>
     <main class="container mx-auto mt-28 px-5 flex">
+      <div id="flash">
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+      </div>
       <h3><%= link_to "holgerfrohloff.de", root_path %></h3>
       <%= yield %>
     </main>

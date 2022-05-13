@@ -73,3 +73,5 @@ gem "redcarpet", "~> 3.5"
 group :test do
   gem "rspec-rails", "~> 5.1"
 end
+
+gem "clearance", "~> 2.5"
