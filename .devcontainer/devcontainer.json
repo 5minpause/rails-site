@@ -12,7 +12,20 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"rebornix.Ruby"
+		"rebornix.Ruby",
+		"bradlc.vscode-tailwindcss",
+		"will-wow.vscode-alternate-file",
+		"lukasvrajik.context-switcher",
+		"mikestead.dotenv",
+		"dbaeumer.vscode-eslint",
+		"noku.rails-run-spec-vscode",
+		"misogi.ruby-rubocop",
+		"WakaTime.vscode-wakatime",
+		"redhat.vscode-yaml",
+		"bung87.rails",
+		"ms-azuretools.vscode-docker",
+		"csstools.postcss",
+		"ldrner.rspec-snippets-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

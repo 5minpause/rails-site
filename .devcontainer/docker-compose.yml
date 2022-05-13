@@ -15,6 +15,7 @@ services:
 
     volumes:
       - ..:/rails-site:cached
+      - ../../gatsby-site/content/posts:/posts
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -31,7 +32,7 @@ services:
     image: postgres:13
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data-site:/var/lib/postgresql/data
       - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: postgres
@@ -41,4 +42,4 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
 volumes:
-  postgres-data: null
+  postgres-data-site: null
