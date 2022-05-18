@@ -1,12 +1,14 @@
 # frozen_string_literal: true
+
 require "rake"
 
 # Inspired from https://robots.thoughtbot.com/test-rake-tasks-like-a-boss
-RSpec.shared_context "rake" do
+RSpec.shared_context "with rake" do
+  let(:task)      { rake[task_name] }
+
   let(:rake)      { Rake::Application.new }
   let(:task_name) { self.class.top_level_description }
   let(:task_path) { "lib/tasks/#{task_name.split(':').join('/')}" }
-  subject         { rake[task_name] }
 
   def loaded_files_excluding_current_rake_file
     $LOADED_FEATURES.reject { |file| file == Rails.root.join(task_path).to_s }

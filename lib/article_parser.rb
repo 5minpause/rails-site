@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Parses a given markdown article and provides its contents
 class ArticleParser
-
   def initialize(path, filename = "index.md")
     @path = path
     @filename = filename
@@ -27,10 +27,10 @@ class ArticleParser
 
   def categories
     markdown_doc.scan(categories_regex)
-      .flatten
-      .last
-      .split(",")
-      .map { |i| i.downcase.strip }
+                .flatten
+                .last
+                .split(",")
+                .map { |i| i.downcase.strip }
   end
 
   private
@@ -38,7 +38,7 @@ class ArticleParser
   attr_reader :path, :filename
 
   def title_regex
-    /(title:)(\s)*(")([\w\s\d'\-,\.&’:()?!]*)\"/
+    /(title:)(\s)*(")([\w\s\d'\-,.&’:()?!]*)"/
   end
 
   def date_regex

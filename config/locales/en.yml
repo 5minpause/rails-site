@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  notice:
+    destroy:
+      success: "%{record} was successfully destroyed."
+    update:
+      success: "%{record} was successfully updated."
+    create:
+      success: "%{record} was successfully created."

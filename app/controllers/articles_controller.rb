@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# CRUD Articles
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
-  before_action :require_login, except: %i[index show]
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
 
   # GET /articles or /articles.json
   def index
@@ -21,8 +24,7 @@ class ArticlesController < ApplicationController
   end
 
   # GET /articles/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /articles or /articles.json
   def create
@@ -30,7 +32,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
+        format.html { redirect_to article_url(@article), notice: t("notice.create.success", record: "Article") }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +45,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
+        format.html { redirect_to article_url(@article), notice: t("notice.update.success", record: "Article") }
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,32 +59,33 @@ class ArticlesController < ApplicationController
     @article.destroy
 
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
+      format.html { redirect_to articles_url, notice: t("notice.destroy.success", record: "Article") }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      if params[:id]
-        @article = Article.find(params[:id])
-      else
-        @article = Article.where(slug: params[:slug]).first
-      end
-    end
 
-    def markdown(renderer)
-      @markdown = Redcarpet::Markdown.new(
-        renderer,
-        autolink: true,
-        tables: true,
-        no_intra_emphasis: true
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_article
+    @article = if params[:id]
+                 Article.find(params[:id])
+               else
+                 Article.where(slug: params[:slug]).first
+               end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def article_params
-      params.fetch(:article, {}).permit(:title, :content)
-    end
+  def markdown(renderer)
+    @markdown = Redcarpet::Markdown.new(
+      renderer,
+      autolink: true,
+      tables: true,
+      no_intra_emphasis: true
+    )
+  end
+
+  # Only allow a list of trusted parameters through.
+  def article_params
+    params.fetch(:article, {}).permit(:title, :content)
+  end
 end

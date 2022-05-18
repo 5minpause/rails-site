@@ -1,16 +1,35 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: articles
+#
+#  id           :bigint           not null, primary key
+#  content      :text
+#  published_at :datetime
+#  slug         :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_articles_on_slug   (slug) UNIQUE
+#  index_articles_on_title  (title) UNIQUE
+#
 class Article < ApplicationRecord
-  has_many :article_categories
+  has_many :article_categories, dependent: :destroy
   has_many :categories, through: :article_categories
 
   before_save :set_slug
-  validates_uniqueness_of :slug
-  validates_uniqueness_of :title
+  validates :slug, uniqueness: true
+  validates :title, uniqueness: true
 
   private
 
   def set_slug
-    return unless self.title
+    return unless title
 
-    self.slug = self.title.parameterize
+    self.slug = title.parameterize
   end
 end

@@ -63,8 +63,8 @@ config/master.key
 # config/secrets.yml
 
 # dotenv
-# TODO Comment out this rule if environment variables can be committed
 .env
+.env.*.local
 
 ## Environment normalization:
 /.bundle
@@ -103,3 +103,4 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+spec/examples.txt

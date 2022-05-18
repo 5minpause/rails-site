@@ -4,14 +4,15 @@ require "rails_helper"
 require "article_parser"
 
 RSpec.describe ArticleParser do
-  subject { described_class.new(path) }
-  context "given a correct path" do
+  let(:parser) { described_class.new(path) }
+
+  context "when given a correct path" do
     describe "#title" do
       context "when path is first article" do
         let(:path) { "spec/fixtures/a-neverending-story" }
 
         it "is correct" do
-          expect(subject.title).to eq("A neverending story")
+          expect(parser.title).to eq("A neverending story")
         end
       end
 
@@ -19,7 +20,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/answering-a-comment-about-delete-all-your-tests" }
 
         it "is correct" do
-          expect(subject.title).to eq("Answering a comment about 'Delete all your tests'")
+          expect(parser.title).to eq("Answering a comment about 'Delete all your tests'")
         end
       end
     end
@@ -29,7 +30,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/a-neverending-story" }
 
         it "is correct" do
-          expect(subject.date).to eq("2019-02-27 16:24:00 +0200")
+          expect(parser.date).to eq("2019-02-27 16:24:00 +0200")
         end
       end
 
@@ -37,7 +38,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/answering-a-comment-about-delete-all-your-tests" }
 
         it "is correct" do
-          expect(subject.date).to eq("2019-02-20 16:24:00 +0200")
+          expect(parser.date).to eq("2019-02-20 16:24:00 +0200")
         end
       end
     end
@@ -47,7 +48,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/a-neverending-story" }
 
         it "is correct" do
-          expect(subject.body).to start_with("\nBack then;\nI did it;")
+          expect(parser.body).to start_with("\nBack then;\nI did it;")
         end
       end
 
@@ -55,7 +56,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/answering-a-comment-about-delete-all-your-tests" }
 
         it "is correct" do
-          expect(subject.body).to start_with("\n\nMatthias Berth is a German expert")
+          expect(parser.body).to start_with("\n\nMatthias Berth is a German expert")
         end
       end
     end
@@ -65,7 +66,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/a-neverending-story" }
 
         it "is correct" do
-          expect(subject.categories).to eq(["article"])
+          expect(parser.categories).to eq(["article"])
         end
       end
 
@@ -73,7 +74,7 @@ RSpec.describe ArticleParser do
         let(:path) { "spec/fixtures/answering-a-comment-about-delete-all-your-tests" }
 
         it "is correct" do
-          expect(subject.categories).to eq(%w(article code\ review quality))
+          expect(parser.categories).to eq(["article", "code review", "quality"])
         end
       end
     end

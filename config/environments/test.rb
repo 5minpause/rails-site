@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/core_ext/integer/time"
 
 # The test environment is used exclusively to run your application's
@@ -7,6 +9,12 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # https://github.com/thoughtbot/clearance#fast-feature-specs
+  # Enable a backdoor in tests to quickly login a user w/o visiting the sign-in form
+  # Usage:
+  # `visit root_path(as: user)`
+  config.middleware.use Clearance::BackDoor
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.
   config.cache_classes = true
@@ -19,7 +27,7 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
+    "Cache-Control" => "public, max-age=#{1.hour.to_i}",
   }
 
   # Show full error reports and disable caching.
@@ -57,5 +65,5 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
 end
