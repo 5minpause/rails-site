@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   get "/sign_up" => "clearance/users#new", as: "sign_up"
   resources :articles
 
-  get "/*slug", to: "articles#show"
+  get "/impressum", to: "articles#impressum"
+
+  get "/*slug", to: "articles#show", constraints: lambda { |req|
+    req.path.exclude? ".png"
+  }
 
   root "articles#index"
 end

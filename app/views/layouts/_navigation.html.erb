@@ -1,0 +1,15 @@
+<h3 class="w-full"><%= link_to "holgerfrohloff.de", root_path %></h3>
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="w-full flex flex-col flex-grow  pt-5 pb-4 bg-white overflow-y-auto">
+  <div class="mt-5 flex-grow flex flex-col">
+    <nav class="flex-1 pr-2 space-y-1 bg-white" aria-label="Sidebar">
+      <div>
+        <a href="/articles" class="<%= nav_item_class('/articles') %> group w-full flex items-center pl-0 pr-2 py-2 text-sm font-medium rounded-md">Blog</a>
+      </div>
+      <div>
+        <a href="/impressum" class="<%= nav_item_class('/impressum') %> group w-full flex items-center pl-0 pr-2 py-2 text-sm font-medium rounded-md">Impressum</a>
+      </div>
+    </nav>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<% if action_name == "show" %>
+<% if action_name == "show" || @static_page %>
   <div class="relative bg-white overflow-hidden">
     <div class="relative px-4 sm:px-6 lg:px-8">
       <div class="text-lg max-w-prose mx-auto">
@@ -15,9 +15,7 @@
   <li>
     <article class="">
       <div class="flex flex-row <%= first_article == article ? '' : 'my-12' %>">
-        <div class="basis-1/4">
-        </div>
-        <div class="basis-3/4">
+        <div class="w-full">
           <div class="relative bg-white overflow-hidden">
             <div class="relative px-4 sm:px-6 lg:px-8">
               <div>

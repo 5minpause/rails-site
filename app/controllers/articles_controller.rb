@@ -6,11 +6,35 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :require_login, except: [:index, :show]
 
+  def impressum
+    renderer = FullRenderer.new(prettify: true, hard_wrap: true)
+    @markdown = markdown(renderer)
+    @article = Article.new(
+      title: "Impressum",
+      slug: "impressum",
+      published_at: Time.current,
+      draft: false,
+      content: <<~CONTENT,
+      Betreiber und inhaltlich Verantwortlicher für diese Webseite:\n
+      \n
+      Holger Frohloff
+      Nantesstr. 34
+      13127 Berlin
+      \n
+      Telefon: 0171 525 32 19
+      E-Mail: holger@holgerfrohloff.de\n
+      CONTENT
+      id: 0
+    )
+    @static_page = true
+    render template: "articles/show"
+  end
+
   # GET /articles or /articles.json
   def index
     renderer = ::IntroRenderer.new(prettify: true, hard_wrap: true)
     @markdown = markdown(renderer)
-    @articles = Article.all.order(published_at: :desc)
+    @articles = Article.published.order(published_at: :desc)
   end
 
   # GET /articles/1 or /articles/1.json

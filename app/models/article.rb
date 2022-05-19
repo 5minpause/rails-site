@@ -6,6 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  content      :text
+#  draft        :boolean          default(TRUE)
 #  published_at :datetime
 #  slug         :string
 #  title        :string
@@ -14,6 +15,7 @@
 #
 # Indexes
 #
+#  index_articles_on_draft  (draft)
 #  index_articles_on_slug   (slug) UNIQUE
 #  index_articles_on_title  (title) UNIQUE
 #
@@ -25,6 +27,8 @@ class Article < ApplicationRecord
   before_save :set_slug
   validates :slug, uniqueness: true
   validates :title, uniqueness: true
+
+  scope :published, -> { where(draft: false) }
 
   private
 
