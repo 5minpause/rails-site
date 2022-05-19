@@ -1,3 +1,9 @@
+<div>
+<% article.images.each do |image| %>
+  <%= image_tag image.representation(resize_to_limit: [100, 100]) %>
+  <%= url_for(image) %>
+<% end %>
+</div>
 <%= form_with(model: article, class: "contents space-y-8") do |f| %>
   <% if article.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -33,6 +39,14 @@
         <p class="mt-2 text-sm text-gray-500">You can use Markdown</p>
       </div>
     </div>
+
+    <%= f.file_field :images, multiple: true, direct_upload: true %>
+
+    <% if article.images.attached? %>
+      <% article.images.each do |image| %>
+        <%= f.hidden_field :images, multiple: true, value: image.signed_id %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="pt-5">

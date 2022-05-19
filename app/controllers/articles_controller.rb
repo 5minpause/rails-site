@@ -2,6 +2,7 @@
 
 # CRUD Articles
 class ArticlesController < ApplicationController
+  include ActiveStorage::SetCurrent
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :require_login, except: [:index, :show]
 
@@ -45,6 +46,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
+        @article.images.attach(params[:images]) if params.fetch(:images, []).compact_blank.present?
         format.html { redirect_to article_url(@article), notice: t("notice.update.success", record: "Article") }
         format.json { render :show, status: :ok, location: @article }
       else
@@ -86,6 +88,6 @@ class ArticlesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def article_params
-    params.fetch(:article, {}).permit(:title, :content)
+    params.fetch(:article, {}).permit(:title, :content, :slug, :published_at, categories: [], images: [])
   end
 end

@@ -35,5 +35,7 @@ module Workspace
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", :local).to_sym
   end
 end
